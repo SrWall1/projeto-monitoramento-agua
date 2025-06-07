@@ -1,35 +1,55 @@
 {
   "version": 1,
-  "author": "Modo Demo",
+  "author": "Versao Completa ESP-IDF",
   "editor": "wokwi",
   "parts": [
     {
       "type": "board-esp32-devkit-c-v4",
       "id": "esp",
       "top": 0,
-      "left": 0,
+      "left": -115,
       "attrs": { "builder": "esp-idf" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potPh",
+      "top": -76.3,
+      "left": 77.2,
+      "attrs": { "label": "Sim_pH (0-14)" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potTurbidity",
+      "top": 20.2,
+      "left": 77.2,
+      "attrs": { "label": "Sim_Turbidez_NTU (0-100)" }
     },
     {
       "type": "wokwi-led",
       "id": "ledValve",
-      "top": -38.4,
-      "left": 134.4,
-      "attrs": { "color": "red", "label": "Válvula" }
+      "top": -115.2,
+      "left": 5,
+      "attrs": { "color": "red", "label": "Válvula Fechada (LED ON)" }
     },
     {
       "type": "wokwi-resistor",
       "id": "rLed",
-      "top": -14.6,
-      "left": 134.4,
+      "top": -91,
+      "left": 5,
       "attrs": { "value": "220" }
     }
   ],
   "connections": [
     [ "esp:TX", "$serialMonitor:RX", "", [] ],
     [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "potPh:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "potPh:GND", "esp:GND", "black", [ "v0" ] ],
+    [ "potPh:SIG", "esp:IO36", "green", [ "h0" ] ],
+    [ "potTurbidity:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "potTurbidity:GND", "esp:GND", "black", [ "v0" ] ],
+    [ "potTurbidity:SIG", "esp:IO39", "orange", [ "h0" ] ],
     [ "ledValve:A", "rLed:1", "green", [ "v0" ] ],
     [ "rLed:2", "esp:IO2", "green", [ "v0" ] ],
-    [ "ledValve:C", "esp:GND", "black", [ "h0", "v-38.4", "h-163.2" ] ]
+    [ "ledValve:C", "esp:GND", "black", [ "h0", "v-96", "h-163.2" ] ]
   ]
 }
